@@ -8,24 +8,7 @@ include_directories("${LIBWEBRTC_PATH}/include/third_party/abseil-cpp")
 
 link_directories("${LIBWEBRTC_PATH}/lib")
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-  # macOS
-  file(READ ${LIBWEBRTC_PATH}/exports_libwebrtc.txt webrtc_libs)
-  string(REGEX REPLACE "lib([^.]+).a[\r\n]*" "\\1;" webrtc_libs "${webrtc_libs}")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWEBRTC_MAC=1 -DWEBRTC_POSIX=1")
-  find_library(CORE_FOUNDATION CoreFoundation)
-  list(APPEND webrtc_libs ${CORE_FOUNDATION})
-  find_library(FOUNDATION Foundation)
-  list(APPEND webrtc_libs ${FOUNDATION})
-  find_library(CORE_AUDIO CoreAudio)
-  list(APPEND webrtc_libs ${CORE_AUDIO})
-  find_library(AUDIO_TOOLBOX AudioToolbox)
-  list(APPEND webrtc_libs ${AUDIO_TOOLBOX})
-  find_library(CORE_GRAPHICS CoreGraphics)
-  list(APPEND webrtc_libs ${CORE_GRAPHICS})
-
-elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   # Linux
   find_package(PkgConfig)
 
@@ -44,7 +27,6 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   list(APPEND webrtc_libs "pthread")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWEBRTC_LINUX=1 -DWEBRTC_POSIX=1")
-endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wno-unused-parameter")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
