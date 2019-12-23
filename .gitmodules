@@ -1,3 +1,9 @@
 [submodule "picojson"]
 	path = picojson
 	url = https://github.com/kazuho/picojson.git
+[submodule "jsoncpp"]
+	path = jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "example/jsoncpp"]
+	path = example/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp.git
